@@ -580,6 +580,9 @@
                             - empty array: side effect will apply to the component only at the time of loading the component in DOM
                             - [state/props/variable_name] : side effectwill apply to the component not only at the time of loading of the componentin DOM but also whenever the value of state/props/variable_name given in the dependency changes.
                     - useRef(initialvalue) : is a react hook that lets you reference a value that's not needed for rendering. Initial value is optional.. It returns an object with "Current" key.
+                    - useSelector(state=>state.reducer_name) : used to select state from store in a component.
+                    - useDispatch() : used to execute an action from a component. Hook will return a function that is capable 
+                    - useParams(): hook will return dynamic value of route associated with a component
                 - Custom Hooks :   create js file to define a specific function for a specific task.Export the function from that file. function name must start with "use" keyword
     13. Form handling in React : There are are 2 ways to manage data inside the form by a component.
             - Controlled Components: are component which store data inside its own state
@@ -592,8 +595,12 @@
                        component of react-router-dom library,  provide this step inside main.jsx file
                     2. Inorder to set up path for component , make sure each component must be inside  "Routes" component of react-router-dom library, provide this step inside App.jsx file. 
                     3. To set up path for component, use "Route" component of react-router-dom library. Route component has attributes like "path" and "element" inorder to setup route for component. All Route component must be inside Routes Component.
+                    4. To set dynamic value in a url use symbol : , eg. /:id/
+                    5. To set page not fount use symbol * , eg. /*
+
              - link  : Tag is used to link to different pages in a Project using React-router-dom.
                 -  "to" : Attribute used to give the path to pages.
+            - 
     15.  Icons - React Icons : https://react-icons.github.io/react-icons/
 
     16. CORS- Cross-Origin Resource Sharing, is a security mechanism that allows web browsers to request resources from a different domain than the one that served the original web page
@@ -680,7 +687,10 @@ Using netlify----: Take build using.. npm run build
     - createSlice() :  used to combine action and reducer in a single file.
         - steps slice for react app
             - create js file for defining slice.
-            - createSlice method call where we have to define reducers as objects, its key act as action and value act as reducer function.
+            - createSlice:  method call where we have to define reducers as objects, its key act as action and value act as reducer function.
+            - createAsyncThunk() : used to make asyncronous call in an action in redux. it accept 2 arguments, first is action type string("slicename/action-name"). 2nd argument is a callback function it can return promise. Its output can be 3 different types. pending state/fullfilled state / reject state. 
+                "ExtraReducers" in slice can handle promise return action. Because it has define different cases to update slice state, based on promise output.
+
 4. Hooks used in component for managing state using redux.
     - useSelector(state=>state.reducer_name) : used to select state from store in a component.
     - useDispatch() : used to execute an action from a component. Hook will return a function that is capable of dispatching an action as its argument when we call the function
