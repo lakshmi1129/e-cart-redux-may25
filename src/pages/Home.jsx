@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,33 @@ const Home = () => {
   );
   console.log(allProducts, loading, errorMsg);
 
+  const [currentPage,setCurrentPage] =useState(1)
+  const productsPerPage = 8
+  const totalPages = Math.ceil(allProducts?.length / productsPerPage)
+  const currentPageProductLastIndex = currentPage * productsPerPage 
+  const currentPageProductFirstIndex = currentPageProductLastIndex- productsPerPage
+  const visibleAllProducts = allProducts?.slice(currentPageProductFirstIndex,currentPageProductLastIndex)
+
+
+
+
+
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  const navigateToNext =()=>{
+    if(currentPage!=totalPages){
+      setCurrentPage(currentPage+1)
+    }
+  }
+
+  const navigateToBack =()=>{
+    if(currentPage!=1){
+      setCurrentPage(currentPage-1)
+    }
+  }
 
   return (
     <>
@@ -33,7 +57,7 @@ const Home = () => {
           <>
             <div className="grid grid-cols-4 gap-4">
               {allProducts?.length > 0 ? (
-                allProducts.map((product) => (
+                visibleAllProducts.map((product) => (
                   <div key={product?.id} className="rounded border p-2 shadow border-blue-500 shadow-blue-800">
                     <img
                       width={"100%"}
@@ -57,6 +81,11 @@ const Home = () => {
                   Products not Found.....
                 </div>
               )}
+            </div>
+            <div className="text-2xl text-center font-bold mt-20">
+              <span onClick={navigateToBack} className="cursor-pointer"><i className="fa-solid fa-backward me-5"></i></span>
+              <span >{currentPage} of  {totalPages} </span>
+              <span onClick={navigateToNext} className="cursor-pointer"><i className="fa-solid fa-forward me-5"></i></span>
             </div>
           </>
         )}
